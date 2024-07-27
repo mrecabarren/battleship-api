@@ -1,0 +1,59 @@
+{% extends "admin/change_list.html" %}
+
+{% block content_title %}
+    <h1> Games Summary </h1>
+{% endblock %}
+
+{% block result_list %}
+    <div class="results">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <div class="text">
+                            <a href="#">Jugador</a>
+                        </div>
+                    </th>
+                    {% for g in games %}
+                        <th>
+                            <div class="text">
+                                <a href="#">{{ g.short_name }}</a>
+                            </div>
+                        </th>
+                    {% endfor %}
+                    <th>
+                        <div class="text">
+                            <a href="#">TOTAL</a>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="text">
+                            <a href="#">Jugador</a>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players_values %}
+                    <tr class="{% cycle 'row1' 'row2' %}">
+                        <td>{{ player.name }}</td>
+                        {% for rg in player.games %}
+                            <td>
+                                {{ rg.plays }}
+                                {% if rg.finished %}
+                                    <img src="/static/admin/img/icon-yes.svg" alt="True">
+                                {% else %}
+                                    <img src="/static/admin/img/icon-no.svg" alt="False">
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td>{{ player.total }}</td>
+                        <td>{{ player.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block pagination %}{% endblock %}
