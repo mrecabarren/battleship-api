@@ -198,16 +198,13 @@ class Player(models.Model):
         return f'{self.name}'
 
     def last_valid_play(self, game):
-        plays = Play.objects.filter(player=self.id,
-                                    game=game,
-                                    result__isnull=False,
-                                    is_valid=True).order_by('-created').all()
+        plays = self.plays.filter(game=game,
+                                  result__isnull=False,
+                                  is_valid=True).order_by('-created').all()
         return plays[0] if len(plays) > 0 else None
 
     def game_plays_count(self, game):
-        plays = Play.objects.filter(player=self.id,
-                                    game=game).count()
-        return plays
+        return self.plays.filter(game=game).count()
 
     def add_play(self):
         self.play_count += 1
