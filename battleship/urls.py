@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from battleship_api.views import BattleshipGamesView, BattleshipPlayView, BattleshipResetView, BattleshipStatusView
+from battleship_api.views import BattleshipGamesView, BattleshipPlayView, BattleshipResetView, BattleshipStatusView, \
+    get_board
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('api/play/', csrf_exempt(BattleshipPlayView.as_view())),
     path('api/game/status/', csrf_exempt(BattleshipStatusView.as_view())),
     path('api/reset/', csrf_exempt(BattleshipResetView.as_view())),
+    path('api/admin/get_board/<int:game_id>/', get_board, name='get_board'),
 ]

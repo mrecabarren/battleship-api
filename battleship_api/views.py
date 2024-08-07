@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views import View
+from django.template.loader import render_to_string
 
 from battleship_api.models import Game, Player, Play
 
@@ -137,3 +138,10 @@ class BattleshipStatusView(View):
             return JsonResponse({"finished": True, 'plays': plays_count, 'game': game_id})
         else:
             return JsonResponse({"finished": False, 'plays': plays_count, 'game': game_id})
+
+
+def get_board(request, game_id):
+    game = Game.objects.get(id=game_id)
+
+    board_html = render_to_string('admin/modal_board.html', {'game': game, 'board': game.board})
+    return JsonResponse({'board_html': board_html})

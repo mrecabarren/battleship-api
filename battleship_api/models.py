@@ -38,6 +38,18 @@ class Game(models.Model):
     def ships_spaces(self):
         return self.ships_form.count('X')
 
+    @property
+    def board_rows_range(self):
+        return range(self.board_rows)
+
+    @property
+    def board_cols_range(self):
+        return range(self.board_cols)
+
+    @property
+    def board(self):
+        return self.__generate_board()
+
     def to_dict(self):
         return {
             'id': self.id,

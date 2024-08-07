@@ -1,7 +1,14 @@
 {% extends "admin/change_list.html" %}
+{% load static %}
 
 {% block content_title %}
     <h1> Games Summary </h1>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    <script type="text/javascript" src="{% static 'js/board.js' %}"></script>
 {% endblock %}
 
 {% block result_list %}
@@ -17,7 +24,7 @@
                     {% for g in games %}
                         <th>
                             <div class="text">
-                                <a href="#">{{ g.short_name }}</a>
+                                <a href="#" class="show-board" data-id="{{ g.id }}">{{ g.short_name }}</a>
                             </div>
                         </th>
                     {% endfor %}
@@ -53,6 +60,12 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div id="modal">
+        <div id="modal-body">
+            <span id="modal-close">&times;</span>
+            <div id="modal-content"></div>
+        </div>
     </div>
 {% endblock %}
 

@@ -1,0 +1,24 @@
+<div>
+    <h2>Tablero del Juego {{ game.short_name }}</h2>
+    <div class="col-numbers" style="--cols: {{ game.board_cols }};">
+        {% for col in game.board_cols_range %}
+            <div class="number">{{ col }}</div>
+        {% endfor %}
+    </div>
+    <div style="display: flex;">
+        <div class="row-numbers" style="--rows: {{ game.board_rows }};">
+            {% for row in game.board_rows_range %}
+                <div class="number">{{ row }}</div>
+            {% endfor %}
+        </div>
+        <div class="board" style="--cols: {{ game.board_cols }}; --rows: {{ game.board_rows }};">
+            {% for row in board %}
+                {% for cell in row %}
+                    <div class="cell {% if cell != '-'%}ship-{{ cell }}{% endif %}">
+                        {% if cell != '-'%}{{ cell }}{% endif %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
